@@ -20,5 +20,38 @@ void main() {
 }
 
 void result(int a, int b, int c, int d, List<int> lottoSet) {
-  if(a == lottoSet[0]) 
+  int strike = 0;
+  int ball = 0;
+  
+  if(a == lottoSet[0]) {
+    strike++;
+  } else if(lottoSet.contains(a)) {
+    ball ++;
+  }
+  
+  if(b == lottoSet[1]) {
+    strike++;
+  } else if(lottoSet.contains(b)) {
+    ball ++;
+  }
+  
+  if(c== lottoSet[2]) {
+    strike++;
+  } else if(lottoSet.contains(c)) {
+    ball ++;
+  }
+  
+  if(d == lottoSet[3]) {
+    strike++;
+  } else if(lottoSet.contains(d)) {
+    ball ++;
+  }
+  
+  if(strike !=0 || ball != 0) {
+    print('$strike S $ball B');
+  } else {
+    print('4 Out');
+  }
+  
 }
+
