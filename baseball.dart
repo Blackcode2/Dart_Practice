@@ -1,4 +1,5 @@
 import 'dart:math';
+//import 'dart:io';
 
 void main() {
  print("Computer is generating random four numbers...");
@@ -15,43 +16,35 @@ void main() {
    if(lottoSet.length == 4) break;
  }
   
+ //String? inputNums = stdin.readLineSync();
+ //print('Your numbers : $inputNums');
+ String? inputNums = '1234';
  
+ List<String> replace = inputNums.split('');
+ List<int> userNums = replace.map(int.parse).toList();
+ result(userNums, lottoSet);
+  
+ print("${userNums}");
  print("${lottoSet}");
 }
 
-void result(int a, int b, int c, int d, List<int> lottoSet) {
+void result(List<int> userNums, List<int> lottoSet) {
   int strike = 0;
   int ball = 0;
+  int out = 0;
   
-  if(a == lottoSet[0]) {
-    strike++;
-  } else if(lottoSet.contains(a)) {
-    ball ++;
+  for(int i = 0; i < 4; i++) {
+    if(userNums[i] == lottoSet[i]) {
+      strike++;
+    } else if(lottoSet.contains(userNums[i])) {
+      ball++;
+    } else {
+      out++;
+    }
   }
   
-  if(b == lottoSet[1]) {
-    strike++;
-  } else if(lottoSet.contains(b)) {
-    ball ++;
-  }
-  
-  if(c== lottoSet[2]) {
-    strike++;
-  } else if(lottoSet.contains(c)) {
-    ball ++;
-  }
-  
-  if(d == lottoSet[3]) {
-    strike++;
-  } else if(lottoSet.contains(d)) {
-    ball ++;
-  }
-  
-  if(strike !=0 || ball != 0) {
-    print('$strike S $ball B');
-  } else {
-    print('4 Out');
-  }
+  print('${strike}S ${ball}B ${out}OUT');
   
 }
+
 
