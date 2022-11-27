@@ -1,45 +1,76 @@
 import 'dart:math';
-//import 'dart:io';
+import 'dart:io';
 
 void main() {
- print("Computer is generating random four numbers...");
+  print("Computer is generating random four numbers... \n");
  
- List<int> lottoSet = [];
+  List<int> randomComputerNums = [];
  
- while(true) {
-   var rnd = new Random().nextInt(10);
+  while(true) {
+    var rnd = new Random().nextInt(10);
    
-   if(!lottoSet.contains(rnd)) {
-     lottoSet.add(rnd);
-   }
+    if(!randomComputerNums.contains(rnd)) {
+      randomComputerNums.add(rnd);
+    }
    
-   if(lottoSet.length == 4) break;
- }
+    if(randomComputerNums.length == 4) break;
+  }
+  print("Computer generated random four numbers! \n");
+
+  while(true){
+    guessNums(result, randomComputerNums);  //get user input
+  }
   
- //String? inputNums = stdin.readLineSync();
- //print('Your numbers : $inputNums');
- String? inputNums = '1234';
- 
- List<String> replace = inputNums.split('');
- List<int> userNums = replace.map(int.parse).toList();
- result(userNums, lottoSet);
-  
- print("${userNums}");
- print("${lottoSet}");
 }
 
-void result(List<int> userNums, List<int> lottoSet) {
+
+
+// Input user's guessing four numbers
+void guessNums(Function result, List<int> randomComputerNums) {
+  
+  String? inputNums;
+  while(true) {    // keep roop until there is no wrong format
+    print('Guess the numbers : ');
+    inputNums = stdin.readLineSync();
+    
+      
+    if(inputNums != null && inputNums.length == 4 && int.parse(inputNums).runtimeType == int) {
+      List<String> inputNumsToStringList = inputNums.split('');
+      Set<String> crossCheck = inputNumsToStringList.toSet();
+      inputNumsToStringList = crossCheck.toList();
+      if(inputNumsToStringList.length == 4) break;
+    }
+    print('Warning, pick four different numbers!');
+  }
+
+  List<String> inputNumsToStringList = inputNums.split('');
+  List<int> userNums = inputNumsToStringList.map(int.parse).toList();
+  result(userNums, randomComputerNums);  //check the result
+    
+  print("${userNums}");
+  print("${randomComputerNums}");  //for test
+}
+
+
+
+// function that shows game result
+void result(List<int> userNums, List<int> randomComputerNums) {
   int strike = 0;
   int ball = 0;
   int out = 0;
   
   for(int i = 0; i < 4; i++) {
-    if(userNums[i] == lottoSet[i]) {
+    if(userNums[i] == randomComputerNums[i]) {
       strike++;
-    } else if(lottoSet.contains(userNums[i])) {
+    } else if(randomComputerNums.contains(userNums[i])) {
       ball++;
     } else {
       out++;
+    }
+
+    if(strike == 4) {
+      print("You win!!");
+      exit(0); 
     }
   }
   
